@@ -1,12 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1> Melons! </h1>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block body %}
+    <h1> My Shopping Cart </h1>
+
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th> Melon Name </th>
+                <th> Quantity </th>
+                <th> Price </th>
+                <th> Total </th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for melon in cart_melons %}
+
+            <tr>
+                <td> {{ melon.common_name }} </td>
+                <td> {{ melon.quantity }} </td>
+                <td> ${{ "%0.2f" | format(melon.price) }} </td>
+                <td> ${{ "%0.2f" | format(melon.total_cost) }} </td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+    <h3> Total: ${{ "%0.2f" | format(order_total) }} </h3>
+
+    <a href="/empty-cart" class="btn btn-primary"> Empty Cart </a>
+{% endblock %}

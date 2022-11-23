@@ -1,10 +1,10 @@
-{% extend 'base.html %}
+{% extends 'base.html' %}
 
 {% block body %}
 
 <h2> {{melon.common_name }}</h2>
 <img class="melon-image" src="{{ melon.image_url }}">
-<h5> Price pre melon: {{ melon.price_str() }}</h5>
+<h5> Price per melon: {{ melon.price_str() }}</h5>
 
 <ul>
 
@@ -17,9 +17,5 @@
 
 </ul>
 
-<a class="btn btn-primary" href="{{ url_for('add_to_cart', melon_id=melon.melon_id) }}">
-    Add to Cart
-</a>
-
-
+    <a class="btn btn-primary" href="{{ url_for('add_to_cart', melon_id=melon.melon_id) }}">Add to Cart</a>
 {% endblock %}
