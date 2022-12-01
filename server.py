@@ -1,5 +1,7 @@
 from flask import Flask, render_template, redirect, flash, request, session
 from melons import get_all, get_by_id
+from forms import LoginForm
+from customers import get_by_username, customers
 import jinja2
 
 app = Flask(__name__)
@@ -35,6 +37,9 @@ def add_to_cart(melon_id):
     Add a melon to the shopping cart and redirect to the shopping cart page.
     '''
 
+    if 'username' not in session: 
+        return redirect("/login")
+
     if 'cart' not in session:
         session['cart'] = {}
     cart = session['cart'] #store cart in local variable to make things easier
@@ -52,9 +57,12 @@ def show_shopping_cart():
     '''
     Display contents of shopping cart.
     '''
+    if 'username' not in session: 
+        return redirect("/login")
 
     order_total = 0
     cart_melons = []
+
 
     #Get cart dict from session (or an empty one if none exists yet)
     cart = session.get("cart", {})
@@ -79,6 +87,45 @@ def empty_cart():
     session["cart"] = {}
 
     return redirect("/cart")
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    ''' Log user into site. '''
+    form = LoginForm(request.form)
+
+    if form.validate_on_submit():
+        #Form has been submitted with valid data
+        username = form.username.data
+        password = form.password.data
+
+        #Check to see if a registered user exists with this username
+        user = get_by_username(username)
+
+        if not user or user['password'] != password:
+            flash("Invalid username or password")
+            return redirect('/login')
+
+        #Store username in session to keep track of logged in user 
+        session["username"] = user["username"]
+        flash("Logged in.")
+        return redirect("/melons")
+    
+    #Form has not been submitted or data was not valid
+    return render_template("login.html", form=form)
+
+@app.route("/logout")
+def logout():
+    ''' Log user out. '''
+
+    del session["username"]
+    flash("Logged out.")
+    return redirect("/login")
+
+@app.errorhandler(404)
+def error_404(e):
+    return render_template("404.html")
+
+
 
 
 
