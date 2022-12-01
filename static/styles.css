@@ -6,4 +6,72 @@
 #melon-list {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
+    
+}
+
+.login-card {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    height: 50%;
+    justify-content: center;
+    margin-right: 25%;
+    margin-left: 25%;
+}
+
+.input {
+    margin: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.card {
+    border-color: green;
+    border-width: 2px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    
+}
+
+.h5border {
+    border-top: solid;
+    border-width: 3px;
+    border-color: green;
+
+}
+.melon-name {
+    text-decoration: none;
+    font-size: 23px;
+    color: green;
+}
+
+ul {
+    padding-left: 0;
+}
+
+li {
+   display:block; 
+   font-size: 20px;
+}
+
+.single-melon-name {
+    font-size: 30px;
+    color: green;
+}
+
+.cart-card {
+    display: flex;
+    margin-right: 25%;
+    margin-left: 25%;
+    margin-top: 100px;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 60%;
+    border-style: solid;
+    border-color: green;
+    border-width: 3px;
+    padding: 20px;
 }

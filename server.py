@@ -47,7 +47,6 @@ def add_to_cart(melon_id):
     cart[melon_id] = cart.get(melon_id, 0) + 1
     session.modified = True
     flash(f"Melon {melon_id} successfully added to cart.")
-    print(cart)
 
     return redirect("/cart")
 
